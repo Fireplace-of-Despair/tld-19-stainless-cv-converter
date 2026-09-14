@@ -1,9 +1,71 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <OutputType>Exe</OutputType>
     <TargetFramework>net11.0</TargetFramework>
+    <OutputType>Exe</OutputType>
     <Nullable>enable</Nullable>
+    <StartupObject>tld19.Program</StartupObject>
+    <NeutralLanguage>en</NeutralLanguage>
+    <!-- The .doc translator creates CultureInfo("en-us") and fails in invariant mode. -->
+    <InvariantGlobalization>false</InvariantGlobalization>
+    <AssemblyName>tld19</AssemblyName>
   </PropertyGroup>
+
+  <PropertyGroup Label="Analysis">
+    <EnforceCodeStyleInBuild>true</EnforceCodeStyleInBuild>
+    <AnalysisLevel>latest-minimum</AnalysisLevel>
+    <!-- IDE0005 (remove unnecessary usings) runs only when the compiler writes the documentation
+         file. This project is an application, not a library, so CS1591 stays off. -->
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <NoWarn>$(NoWarn);CS1591</NoWarn>
+  </PropertyGroup>
+
+  <PropertyGroup Label="Brand">
+    <Product>tld19</Product>
+    <AssemblyTitle>CV Converter</AssemblyTitle>
+    <Authors>Stan "Chief" Shevtsov</Authors>
+    <Company>Fireplace Of Despair</Company>
+    <Copyright>Copyright (c) 2026 Shevtsov Stanislav</Copyright>
+    <PackageLicenseExpression>MPL-2.0</PackageLicenseExpression>
+    <Version>1.0.0</Version>
+    <AssemblyVersion>1.0.0</AssemblyVersion>
+    <FileVersion>1.0.0</FileVersion>
+    <PackageProjectUrl>https://github.com/Fireplace-of-Despair/tld-19-cv-converter</PackageProjectUrl>
+  </PropertyGroup>
+
+  <!--
+    MPL section 3.4 asks you to keep the license notices with the program. Section 3.2 asks you to tell
+    each recipient how to get the source. Both files therefore travel next to the executable.
+  -->
+  <ItemGroup Label="License">
+    <Content Include="..\LICENSE" Link="LICENSE" CopyToOutputDirectory="PreserveNewest" CopyToPublishDirectory="PreserveNewest" />
+    <Content Include="..\NOTICE" Link="NOTICE" CopyToOutputDirectory="PreserveNewest" CopyToPublishDirectory="PreserveNewest" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="b2xtranslator.doc" Version="1.0.2" />
+    <PackageReference Include="DocumentFormat.OpenXml" Version="3.5.1" />
+    <PackageReference Include="Mediator.Abstractions" Version="3.0.2" />
+    <PackageReference Include="Mediator.SourceGenerator" Version="3.0.2">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="10.0.12" />
+    <PackageReference Include="PdfPig" Version="0.1.16" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <InternalsVisibleTo Include="tld19Tests" />
+  </ItemGroup>
+
+  <!--
+    Keep the build-only files out of the publish folder. The documentation file serves IDE0005 and the
+    symbols serve a debugger, and neither one serves a user of the tool.
+  -->
+  <Target Name="RemoveBuildOnlyFilesFromPublish" AfterTargets="ComputeResolvedFilesToPublishList">
+    <ItemGroup>
+      <ResolvedFileToPublish Remove="@(ResolvedFileToPublish)" Condition="'%(ResolvedFileToPublish.Extension)' == '.xml' Or '%(ResolvedFileToPublish.Extension)' == '.pdb'" />
+    </ItemGroup>
+  </Target>
 
 </Project>

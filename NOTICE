@@ -1,0 +1,49 @@
+CV Converter
+Copyright (c) 2026 Shevtsov Stanislav ("Fireplace of Despair")
+
+This program is free software. You can redistribute it and change it under the
+terms of the Mozilla Public License, version 2.0, as the Mozilla Foundation
+publishes it.
+
+This program goes out in the hope that it is useful, but WITHOUT ANY WARRANTY.
+It carries no implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR
+PURPOSE. Read the Mozilla Public License for more details.
+
+The MPL works on each file. When you change a file of this project, publish
+that file. Your own new files stay under your own terms.
+
+The LICENSE file holds the full text of the license.
+
+
+THIRD-PARTY COMPONENTS
+======================
+
+This product uses the components below. Each one keeps its own license and its
+own copyright. The list names the license that the package declares. Read the
+license file inside each package for the full text.
+
+Apache License 2.0
+------------------
+  PdfPig                                  https://github.com/UglyToad/PdfPig
+  xunit.v3.mtp-v2 (tests only)            https://github.com/xunit/xunit
+
+BSD 3-Clause License
+--------------------
+  b2xtranslator                           https://github.com/Sserebryan/b2xtranslator
+  b2xtranslator.doc                       https://github.com/Sserebryan/b2xtranslator
+  Copyright (c) 2017, Evolution Recruitment Solutions (.NET Core Port).
+  Copyright (c) 2008-2009, DIaLOGIKa (Mono Original).
+
+MIT License
+-----------
+  DocumentFormat.OpenXml                  https://github.com/dotnet/Open-XML-SDK
+  DocumentFormat.OpenXml.Framework        https://github.com/dotnet/Open-XML-SDK
+  Mediator.Abstractions                   https://github.com/martinothamar/Mediator
+  Mediator.SourceGenerator                https://github.com/martinothamar/Mediator
+  Microsoft.Extensions.*                  https://github.com/dotnet/runtime
+  System.IO.Packaging                     https://github.com/dotnet/runtime
+
+Update this list when you add a package or when you remove one. This command
+prints every package that the tool uses:
+
+  dotnet list tld19/tld19.csproj package --include-transitive

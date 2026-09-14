@@ -1,0 +1,32 @@
+name: Tests
+
+on:
+  pull_request:
+    branches:
+      - main
+      - test
+
+permissions:
+  contents: read
+
+# A new commit on the same pull request replaces the run of the earlier one.
+concurrency:
+  group: tests-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out the pull request
+        uses: actions/checkout@v5
+
+      - name: Install the .NET SDK
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 11.0.x
+          dotnet-quality: preview
+
+      - name: Run the tests
+        run: dotnet test Tests/tld19Tests/tld19Tests.csproj --nologo

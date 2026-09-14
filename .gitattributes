@@ -1,0 +1,12 @@
+# Keep a shell script with Unix line endings. A CRLF file fails on a Linux server, because the
+# kernel reads the carriage return as a part of the interpreter path.
+*.sh text eol=lf
+
+# The tool writes Markdown with line feeds, and the conversion tests compare bytes. A checkout with
+# core.autocrlf must not turn the expected output into CRLF.
+Tests/tld19Tests/Fixtures/expected.md text eol=lf
+
+# Word documents and PDF files are binary.
+*.doc binary
+*.docx binary
+*.pdf binary
